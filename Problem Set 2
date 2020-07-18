@@ -1,0 +1,69 @@
+def finalbalance(balance, annualInterestRate, monthlyPaymentRate, months):
+    '''
+
+    Parameters
+    ----------
+    balance : int
+        outstanding credit card balance
+    annualInterestRate : int
+        decimal version of annual interest rate
+    monthlyPaymentRate : int
+        decimal version of monthly payment rate
+    months : int
+        number of months paying off debt
+
+    Returns
+    -------
+    finalbalance: int
+        the final balance after iterating payments
+
+    '''
+    # the mathematical variables that enable solution
+    monthlyInterestRate = annualInterestRate / 12
+    minMonthlyPaymentRate = monthlyPaymentRate * balance
+    monthlyUnpaidBalance = balance - minMonthlyPaymentRate
+    updatedBalance = monthlyUnpaidBalance + monthlyInterestRate * monthlyUnpaidBalance
+    
+    months -= 1
+    
+    if months == 0:
+        return round(updatedBalance, 2)
+    else:
+        return finalbalance(updatedBalance, annualInterestRate, monthlyPaymentRate, months)
+        
+print("Remaining balance: " + str(finalbalance(484, 0.2, 0.04, 12)))
+
+def lowestpayment(balance, annualInterestRate, low, high, times):
+    '''
+    calculate the lowespayment within a year
+    '''
+    if times == 0:
+        monthlyInterestRate = annualInterestRate / 12
+        low = balance / 12
+        high = (balance * (1 + monthlyInterestRate) ** 12) / 12
+        trialPayment = (low + high) / 2
+    else:
+        trialPayment = (low + high) / 2
+    
+    i = 0
+        
+    for i in range(12):
+        if i == 0:
+            monthlyInterestRate = annualInterestRate / 12
+            monthlyUnpaidBalance = balance - trialPayment
+            updatedBalance = monthlyUnpaidBalance + monthlyInterestRate * monthlyUnpaidBalance
+        else:
+            monthlyInterestRate = annualInterestRate / 12
+            monthlyUnpaidBalance = updatedBalance - trialPayment
+            updatedBalance = monthlyUnpaidBalance + monthlyInterestRate * monthlyUnpaidBalance
+        i += 1
+    
+    if updatedBalance > 0.01:
+        return lowestpayment(balance, annualInterestRate, trialPayment, high, 1)
+    elif updatedBalance < -0.01:
+        return lowestpayment(balance, annualInterestRate, low, trialPayment, 1)
+    else:
+        return round(trialPayment, 2)
+        
+    
+print("Lowest Payment: " + str(lowestpayment(999999, 0.18, 0, 0, 0)))
