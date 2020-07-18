@@ -65,5 +65,4 @@ def lowestpayment(balance, annualInterestRate, low, high, times):
     else:
         return round(trialPayment, 2)
         
-    
 print("Lowest Payment: " + str(lowestpayment(999999, 0.18, 0, 0, 0)))
