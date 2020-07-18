@@ -30,8 +30,6 @@ def finalbalance(balance, annualInterestRate, monthlyPaymentRate, months):
         return round(updatedBalance, 2)
     else:
         return finalbalance(updatedBalance, annualInterestRate, monthlyPaymentRate, months)
-        
-print("Remaining balance: " + str(finalbalance(484, 0.2, 0.04, 12)))
 
 def lowestpayment(balance, annualInterestRate, low, high, times):
     '''
@@ -64,5 +62,4 @@ def lowestpayment(balance, annualInterestRate, low, high, times):
         return lowestpayment(balance, annualInterestRate, low, trialPayment, 1)
     else:
         return round(trialPayment, 2)
-        
-print("Lowest Payment: " + str(lowestpayment(999999, 0.18, 0, 0, 0)))
+
