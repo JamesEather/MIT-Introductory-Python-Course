@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jun 17 21:54:12 2020
+
+@author: jameseather
+"""
+
+# Assume s is a string of lower case characters.
+# Write a program that prints the longest substring of s in which the letters
+# occur in alphabetical order. For example, if s = 'azcbobobegghakl', 
+# then your program should print
+# Longest substring in alphabetical order is: beggh
+# In the case of ties, print the first substring. For example, if s = 'abcbcd',
+# then your program should print
+# Longest substring in alphabetical order is: abc
+
+s = "zyxwvutsrqponmlkjihgfedcba"
+
+i = 0
+j = 1
+k = 2
+alph = ""
+newalph = ""
+
+for letters in s:
+    if s[i] <= s[j]:
+        if alph == "":
+            if s[j] <= s[k]:
+                alph += s[i]
+                newalph += s[i]
+            else:
+                alph += s[i] + s[j]
+                newalph += s[i] + s[j]
+        elif s[j] > s[k]:
+            newalph += s[i] + s[j]
+            if len(newalph) > len(alph):
+                alph = newalph
+        else:
+            newalph += s[i]
+            if len(newalph) > len(alph):
+                alph = newalph
+    else:
+        if alph == "":
+            alph = s[i]
+            newalph = s[j]
+        newalph = ""
+    
+    i += 1
+    if j < len(s) - 1:
+        j += 1
+    if k < len(s) - 1:
+        k += 1
+
+print("Longest substring in alphabetical order is: " + alph)
